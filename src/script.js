@@ -33,7 +33,55 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- 2. RSVP Form Handling ---
+    // --- 2. Background Music Auto-Play & Toggle ---
+    const musicToggleBtn = document.getElementById("musicToggleBtn");
+    const weddingAudio = document.getElementById("weddingAudio");
+    const musicIcon = document.getElementById("musicIcon");
+
+    let isPlaying = false;
+
+    if (weddingAudio) {
+        weddingAudio.volume = 0.4;
+
+        const playAudio = () => {
+            weddingAudio.play().then(() => {
+                isPlaying = true;
+                if (musicIcon) musicIcon.className = "fa-solid fa-volume-high";
+                if (musicToggleBtn) musicToggleBtn.classList.add("animate-pulse");
+                
+                window.removeEventListener("click", playAudio);
+                window.removeEventListener("scroll", playAudio);
+                window.removeEventListener("keydown", playAudio);
+            }).catch(error => {
+                console.log("Waiting for user interaction to play audio...");
+            });
+        };
+
+        playAudio();
+        window.addEventListener("click", playAudio, { once: true });
+        window.addEventListener("scroll", playAudio, { once: true });
+        window.addEventListener("keydown", playAudio, { once: true });
+
+        if (musicToggleBtn) {
+            musicToggleBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                if (isPlaying) {
+                    weddingAudio.pause();
+                    if (musicIcon) musicIcon.className = "fa-solid fa-music";
+                    if (musicToggleBtn) musicToggleBtn.classList.remove("animate-pulse");
+                    isPlaying = false;
+                } else {
+                    weddingAudio.play().then(() => {
+                        if (musicIcon) musicIcon.className = "fa-solid fa-volume-high";
+                        if (musicToggleBtn) musicToggleBtn.classList.add("animate-pulse");
+                        isPlaying = true;
+                    });
+                }
+            });
+        }
+    }
+
+    // --- 3. RSVP Form Handling ---
     const rsvpForm = document.getElementById("rsvpForm");
     const rsvpSuccess = document.getElementById("rsvpSuccess");
     const attendanceSelect = document.getElementById("attendanceSelect");
@@ -57,9 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 3. Photo Upload & Gallery Functionality ---
+    // --- 4. Photo Upload & Google Drive Integration ---
     const photoUploadInput = document.getElementById("photoUpload");
     const photoGrid = document.getElementById("photoGrid");
+
+    const googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbyQRg00_OyGNCtdgbcaoO-fu1HMGJpzRtyFT4GCmATaSfyom8GDz0BW3j9YU_7FN3rhiQ/exec"; 
 
     if (photoUploadInput && photoGrid) {
         photoUploadInput.addEventListener("change", (e) => {
@@ -71,12 +121,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reader = new FileReader();
 
                 reader.onload = function(uploadEvent) {
-                    const imageUrl = uploadEvent.target.result;
-                    
+                    const fullBase64 = uploadEvent.target.result;
+                    const base64Data = fullBase64.split(',')[1]; 
+
+                    // Send to Google Drive via Apps Script (Fixed condition)
+                    if (googleAppsScriptUrl && googleAppsScriptUrl !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL") {
+                        fetch(googleAppsScriptUrl, {
+                            method: "POST",
+                            body: JSON.stringify({
+                                base64: base64Data,
+                                mimeType: file.type,
+                                filename: file.name
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log("Photo uploaded to Google Drive successfully!", data);
+                        })
+                        .catch(error => console.error("Error uploading to Google Drive:", error));
+                    }
+
+                    // Display instantly in browser gallery
                     const card = document.createElement("div");
                     card.className = "group relative bg-white border border-sage-200 rounded-2xl overflow-hidden shadow-sm aspect-square";
                     card.innerHTML = `
-                        <img src="${imageUrl}" alt="Uploaded guest photo" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <img src="${fullBase64}" alt="Uploaded guest photo" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-sage-900/60 via-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
                             <span class="text-white text-xs font-light">Uploaded just now</span>
                         </div>
@@ -91,55 +160,4 @@ document.addEventListener("DOMContentLoaded", () => {
             photoUploadInput.value = "";
         });
     }
-
-    // --- 4. Background Music Management & Auto-Start on First Interaction ---
-    const musicToggleBtn = document.getElementById("musicToggleBtn");
-    const weddingAudio = document.getElementById("weddingAudio");
-    const musicIcon = document.getElementById("musicIcon");
-
-    let isPlaying = false;
-
-    function playAudio() {
-        if (!weddingAudio) return;
-        weddingAudio.play().then(() => {
-            isPlaying = true;
-            if (musicIcon) musicIcon.className = "fa-solid fa-volume-high";
-            if (musicToggleBtn) musicToggleBtn.classList.add("animate-pulse");
-        }).catch(error => {
-            console.log("Waiting for user interaction to start audio:", error);
-        });
-    }
-
-    function pauseAudio() {
-        if (!weddingAudio) return;
-        weddingAudio.pause();
-        isPlaying = false;
-        if (musicIcon) musicIcon.className = "fa-solid fa-music";
-        if (musicToggleBtn) musicToggleBtn.classList.remove("animate-pulse");
-    }
-
-    if (musicToggleBtn && weddingAudio) {
-        musicToggleBtn.addEventListener("click", () => {
-            if (isPlaying) {
-                pauseAudio();
-            } else {
-                playAudio();
-            }
-        });
-    }
-
-    // Try playing immediately when page loads
-    playAudio();
-
-    // Fallback: Instantly starts playing on the visitor's very first click anywhere on the page
-    const startAudioOnFirstInteraction = () => {
-        if (!isPlaying) {
-            playAudio();
-        }
-        document.removeEventListener("click", startAudioOnFirstInteraction);
-        document.removeEventListener("keydown", startAudioOnFirstInteraction);
-    };
-
-    document.addEventListener("click", startAudioOnFirstInteraction);
-    document.addEventListener("keydown", startAudioOnFirstInteraction);
 });
