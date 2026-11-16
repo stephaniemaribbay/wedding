@@ -1,242 +1,694 @@
+
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edward & Ariane — Wedding Invitation</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sage: {
-                            50: '#F4F7F4',
-                            100: '#E3EAE3',
-                            200: '#C7D5C7',
-                            300: '#A3B8A3',
-                            600: '#6B826B',
-                            700: '#526552',
-                            800: '#3D4D3D',
-                            900: '#2A352A',
-                        },
-                        cream: {
-                            50: '#FCFAF7',
-                            100: '#F5EFE6',
-                        }
-                    },
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Edward & Ariane | Wedding Invitation</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Elegant wedding calligraphy -->
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+    --sage: #626c53;
+    --dark-sage: #424c3b;
+    --light-sage: #a5a88d;
+    --cream: #f6f0e2;
+    --gold: #ad986d;
+    --ink: #4c523f;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--ink);
+    background: var(--cream);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.script {
+    font-family: 'Allura', cursive;
+    font-weight: 400;
+}
+
+.serif {
+    font-family: 'Playfair Display', serif;
+}
+
+.paper {
+    background-color: var(--cream);
+    background-image:
+        radial-gradient(#a9957040 .6px, transparent .6px);
+    background-size: 7px 7px;
+}
+
+.section-paper {
+    position: relative;
+    overflow: hidden;
+}
+
+.botanical {
+    position: absolute;
+    width: 200px;
+    height: 270px;
+    color: #788064;
+    opacity: .72;
+    pointer-events: none;
+}
+
+.botanical.left {
+    left: -20px;
+    bottom: -25px;
+}
+
+.botanical.right {
+    right: -20px;
+    bottom: -25px;
+    transform: scaleX(-1);
+}
+
+.botanical.top-left {
+    left: -20px;
+    top: -20px;
+}
+
+.botanical.top-right {
+    right: -20px;
+    top: -20px;
+    transform: scaleX(-1);
+}
+
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--gold);
+}
+
+.ornament::before,
+.ornament::after {
+    content: "";
+    height: 1px;
+    width: 65px;
+    background: var(--gold);
+}
+
+.invitation-frame {
+    position: relative;
+    background: rgba(248,242,226,.96);
+    padding: 48px 25px;
+    border: 5px double var(--gold);
+    border-radius: 35px;
+    outline: 1px solid #ad986d70;
+    outline-offset: 5px;
+    box-shadow: 0 10px 35px #33352b35;
+}
+
+.couple-name {
+    font-family: 'Allura', cursive;
+    font-size: clamp(48px, 9vw, 86px);
+    line-height: 1.2;
+    white-space: nowrap;
+    color: #505c45;
+    font-weight: 400;
+    letter-spacing: -1px;
+}
+
+.vintage-btn {
+    background: var(--sage);
+    color: white;
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    padding: 13px 30px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    transition: .3s;
+}
+
+.vintage-btn:hover {
+    background: var(--dark-sage);
+    transform: translateY(-2px);
+}
+
+#dropZone {
+    border: 2px dashed #9c9e7d;
+    background: #f1ead9;
+    transition: .3s;
+    position: relative;
+    overflow: hidden;
+}
+
+#dropZone:hover {
+    background: #e8e5d6;
+    border-color: var(--sage);
+}
+
+.form-input {
+    width: 100%;
+    padding: 13px;
+    background: #f9f3e7;
+    border: 1px solid #b6a47d;
+    color: var(--ink);
+    outline: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+}
+
+.form-input:focus {
+    border-color: var(--sage);
+}
+
+@media(max-width: 420px) {
+    .couple-name {
+        font-size: clamp(42px, 11vw, 48px);
+        letter-spacing: -1.5px;
+    }
+
+    .invitation-frame {
+        padding: 40px 12px;
+    }
+}
+
+@media(max-width: 360px) {
+    .couple-name {
+        font-size: 39px;
+    }
+}
+
+</style>
 </head>
-<body class="bg-cream-50 text-sage-900 font-sans antialiased selection:bg-sage-200">
 
-    <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-cream-50/80 backdrop-blur-md border-b border-sage-100 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-serif text-2xl font-medium tracking-wide text-sage-800">E & A</a>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-widest uppercase">
-                <a href="#story" class="hover:text-sage-600 transition">Our Story</a>
-                <a href="#details" class="hover:text-sage-600 transition">Details</a>
-                <a href="#rsvp" class="hover:text-sage-600 transition">RSVP</a>
-                <a href="#gallery" class="hover:text-sage-600 transition">Photo Share</a>
-            </nav>
-            <a href="#rsvp" class="bg-sage-700 hover:bg-sage-800 text-cream-50 text-xs tracking-widest uppercase px-5 py-3 rounded-full transition shadow-sm">
-                RSVP Now
-            </a>
-        </div>
-    </header>
+<body>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 bg-sage-100/40 overflow-hidden">
-        <div class="absolute inset-0 z-0 opacity-10 bg-[radial-gradient(#526552_1px,transparent_1px)] [background-size:24px_24px]"></div>
-        <div class="relative z-10 max-w-3xl mx-auto text-center px-6 py-20">
-            <span class="inline-block text-xs uppercase tracking-[0.3em] text-sage-600 mb-6 font-semibold">The Wedding Celebration</span>
-            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-normal text-sage-900 mb-6 leading-tight">
-                Edward <span class="font-light italic text-sage-600">&</span> Ariane
-            </h1>
-            <p class="text-lg md:text-xl font-light text-sage-700 tracking-wide mb-10">
-                December 11, 2026 • Tagaytay City, Philippines
-            </p>
-            
-            <!-- Countdown Timer Container -->
-            <div id="countdown" class="grid grid-cols-4 gap-4 max-w-md mx-auto mb-12">
-                <div class="bg-white/80 backdrop-blur border border-sage-200 p-4 rounded-xl shadow-sm">
-                    <span id="days" class="block font-serif text-2xl md:text-3xl text-sage-800">00</span>
-                    <span class="text-[10px] uppercase tracking-widest text-sage-600">Days</span>
-                </div>
-                <div class="bg-white/80 backdrop-blur border border-sage-200 p-4 rounded-xl shadow-sm">
-                    <span id="hours" class="block font-serif text-2xl md:text-3xl text-sage-800">00</span>
-                    <span class="text-[10px] uppercase tracking-widest text-sage-600">Hours</span>
-                </div>
-                <div class="bg-white/80 backdrop-blur border border-sage-200 p-4 rounded-xl shadow-sm">
-                    <span id="minutes" class="block font-serif text-2xl md:text-3xl text-sage-800">00</span>
-                    <span class="text-[10px] uppercase tracking-widest text-sage-600">Mins</span>
-                </div>
-                <div class="bg-white/80 backdrop-blur border border-sage-200 p-4 rounded-xl shadow-sm">
-                    <span id="seconds" class="block font-serif text-2xl md:text-3xl text-sage-800">00</span>
-                    <span class="text-[10px] uppercase tracking-widest text-sage-600">Secs</span>
-                </div>
-            </div>
+<!-- BOTANICAL FLOWERS AND ROSES -->
+<svg width="0" height="0" style="position:absolute">
+<defs>
 
-            <a href="#details" class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-sage-700 hover:text-sage-900 transition font-semibold">
-                Scroll to explore <i class="fa-solid fa-arrow-down animate-bounce"></i>
-            </a>
-        </div>
-    </section>
+<symbol id="rose-branch" viewBox="0 0 200 260">
 
-    <!-- Details Section -->
-    <section id="details" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-            <span class="text-xs uppercase tracking-[0.3em] text-sage-600 font-semibold">Join Our Special Day</span>
-            <h2 class="font-serif text-4xl md:text-5xl text-sage-900 mt-2">Wedding Details</h2>
-        </div>
-        <div class="grid md:grid-cols-2 gap-10">
-            <!-- Ceremony -->
-            <div class="bg-white border border-sage-200 p-10 rounded-2xl shadow-sm text-center relative overflow-hidden group hover:border-sage-300 transition">
-                <div class="absolute top-0 left-0 right-0 h-2 bg-sage-600"></div>
-                <div class="w-12 h-12 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center mx-auto mb-6 text-lg">
-                    <i class="fa-solid fa-church"></i>
-                </div>
-                <h3 class="font-serif text-2xl text-sage-900 mb-2">The Ceremony</h3>
-                <p class="text-sage-600 font-medium mb-4">3:00 PM in the Afternoon</p>
-                <p class="text-sage-700 text-sm mb-6 leading-relaxed">
-                    Caleruega Chapel of the Transfiguration<br>
-                    Nasugbu, Batangas
-                </p>
-                <a href="https://maps.google.com" target="_blank" class="inline-block text-xs uppercase tracking-widest border-b border-sage-700 pb-1 text-sage-800 hover:text-sage-600 transition">
-                    View on Map <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
-                </a>
-            </div>
+    <g fill="none" stroke="currentColor"
+       stroke-width="1.4" stroke-linecap="round">
 
-            <!-- Reception -->
-            <div class="bg-white border border-sage-200 p-10 rounded-2xl shadow-sm text-center relative overflow-hidden group hover:border-sage-300 transition">
-                <div class="absolute top-0 left-0 right-0 h-2 bg-sage-600"></div>
-                <div class="w-12 h-12 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center mx-auto mb-6 text-lg">
-                    <i class="fa-solid fa-glass-cheers"></i>
-                </div>
-                <h3 class="font-serif text-2xl text-sage-900 mb-2">The Reception</h3>
-                <p class="text-sage-600 font-medium mb-4">Immediately Following Ceremony</p>
-                <p class="text-sage-700 text-sm mb-6 leading-relaxed">
-                    Antonio's Garden Restaurant<br>
-                    Tagaytay City, Cavite
-                </p>
-                <a href="https://maps.google.com" target="_blank" class="inline-block text-xs uppercase tracking-widest border-b border-sage-700 pb-1 text-sage-800 hover:text-sage-600 transition">
-                    View on Map <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
-                </a>
-            </div>
-        </div>
-    </section>
+        <path d="M25 245 Q80 165 100 25"/>
 
-    <!-- RSVP Form Section -->
-    <section id="rsvp" class="py-24 bg-sage-100/50 px-6">
-        <div class="max-w-xl mx-auto bg-white border border-sage-200 p-8 md:p-12 rounded-2xl shadow-sm">
-            <div class="text-center mb-10">
-                <span class="text-xs uppercase tracking-[0.3em] text-sage-600 font-semibold">Be Our Guest</span>
-                <h2 class="font-serif text-3xl md:text-4xl text-sage-900 mt-2">RSVP</h2>
-                <p class="text-sage-700 text-sm mt-2">Kindly respond by November 30, 2026</p>
-            </div>
-            
-            <form id="rsvpForm" class="space-y-6">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-sage-700 mb-2 font-semibold">Full Name(s)</label>
-                    <input type="text" required placeholder="e.g. Jane Doe & Guest" class="w-full bg-cream-50 border border-sage-200 rounded-xl px-4 py-3 text-sage-900 focus:outline-none focus:border-sage-600 transition text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-sage-700 mb-2 font-semibold">Email Address</label>
-                    <input type="email" required placeholder="jane@example.com" class="w-full bg-cream-50 border border-sage-200 rounded-xl px-4 py-3 text-sage-900 focus:outline-none focus:border-sage-600 transition text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-sage-700 mb-2 font-semibold">Will you attend?</label>
-                    <select id="attendanceSelect" class="w-full bg-cream-50 border border-sage-200 rounded-xl px-4 py-3 text-sage-900 focus:outline-none focus:border-sage-600 transition text-sm">
-                        <option value="yes">Joyfully Accept</option>
-                        <option value="no">Regretfully Decline</option>
-                    </select>
-                </div>
-                <div id="mealSection">
-                    <label class="block text-xs uppercase tracking-wider text-sage-700 mb-2 font-semibold">Dietary Restrictions / Meal Preference</label>
-                    <input type="text" placeholder="e.g. Vegetarian, Food Allergies" class="w-full bg-cream-50 border border-sage-200 rounded-xl px-4 py-3 text-sage-900 focus:outline-none focus:border-sage-600 transition text-sm">
-                </div>
-                <button type="submit" class="w-full bg-sage-700 hover:bg-sage-800 text-cream-50 font-medium py-3.5 rounded-xl transition uppercase text-xs tracking-widest shadow-sm">
-                    Submit Response
-                </button>
-            </form>
-            <div id="rsvpSuccess" class="hidden text-center py-8">
-                <div class="w-12 h-12 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center mx-auto mb-4 text-xl">
-                    <i class="fa-solid fa-check"></i>
-                </div>
-                <h3 class="font-serif text-2xl text-sage-900 mb-2">Thank You!</h3>
-                <p class="text-sage-700 text-sm">Your response has been recorded. We can't wait to celebrate with you!</p>
-            </div>
-        </div>
-    </section>
+        <path d="M66 177 Q15 130 20 100 Q65 113 66 177Z"/>
 
-    <!-- Photo Upload & Gallery Section -->
-    <section id="gallery" class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-            <span class="text-xs uppercase tracking-[0.3em] text-sage-600 font-semibold">Memory Share</span>
-            <h2 class="font-serif text-4xl md:text-5xl text-sage-900 mt-2">Wedding Guestbook & Photos</h2>
-            <p class="text-sage-700 text-sm mt-3 max-w-lg mx-auto">Snap a photo during the celebration or upload your favorite moments with us below!</p>
-        </div>
+        <path d="M78 135 Q135 95 155 115 Q131 155 78 135Z"/>
 
-        <!-- Upload Box -->
-        <div class="max-w-xl mx-auto bg-white border-2 border-dashed border-sage-300 p-8 rounded-2xl text-center mb-16 hover:border-sage-500 transition cursor-pointer relative" id="dropZone">
-            <input type="file" id="photoUpload" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
-            <div class="w-12 h-12 bg-sage-100 text-sage-700 rounded-full flex items-center justify-center mx-auto mb-4 text-lg">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-            </div>
-            <h3 class="font-serif text-lg text-sage-900 mb-1">Click or drag photos to upload</h3>
-            <p class="text-xs text-sage-600 uppercase tracking-wider">PNG, JPG up to 10MB</p>
-        </div>
+        <path d="M90 85 Q43 53 57 24 Q98 35 90 85Z"/>
 
-        <!-- Dynamic Photo Grid -->
-        <div id="photoGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Sample Initial Placeholder Photo 1 -->
-            <div class="group relative bg-white border border-sage-200 rounded-2xl overflow-hidden shadow-sm aspect-square">
-                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600" alt="Wedding sample" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-sage-900/60 via-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
-                    <span class="text-white text-xs font-light">Uploaded by Couple</span>
-                </div>
-            </div>
-            <!-- Sample Initial Placeholder Photo 2 -->
-            <div class="group relative bg-white border border-sage-200 rounded-2xl overflow-hidden shadow-sm aspect-square">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=600" alt="Wedding sample" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute inset-0 bg-gradient-to-t from-sage-900/60 via-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-4">
-                    <span class="text-white text-xs font-light">Uploaded by Guest</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        <path d="M50 204 Q95 190 111 207 Q87 230 50 204Z"/>
 
-    <!-- Footer -->
-    <footer class="bg-sage-900 text-cream-50 py-12 px-6 text-center">
-        <p class="font-serif text-2xl mb-3">Edward & Ariane</p>
-        <p class="text-xs text-sage-300 tracking-[0.2em] uppercase">December 11, 2026 • Tagaytay City</p>
-    </footer>
+    </g>
 
-    <!-- JavaScript Module Loader -->
-    <script src="script.js"></script>
+    <g fill="#c4b99a" stroke="#8c8b68" stroke-width="1.2">
 
-    <!-- Floating Music Player Button -->
-<div class="fixed bottom-6 right-6 z-50">
-    <button id="musicToggleBtn" class="bg-sage-700 hover:bg-sage-800 text-cream-50 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition focus:outline-none">
-        <i id="musicIcon" class="fa-solid fa-music"></i>
-    </button>
-</div>
+        <path d="M106 27 C91 16 96 3 107 6 C116 -2 127 7 123 17 C137 25 123 37 114 33 C108 40 99 35 106 27Z"/>
 
-<!-- Audio Element -->
+        <path d="M109 18 Q118 10 121 19 Q118 27 110 24Z" fill="#a4a17c"/>
+
+    </g>
+
+</symbol>
+
+<symbol id="floral-corner" viewBox="0 0 240 280">
+
+    <use href="#rose-branch" x="5" y="5" width="180" height="245"/>
+
+    <g fill="none" stroke="currentColor" stroke-width="1.2">
+
+        <path d="M10 255 Q75 220 95 170"/>
+
+        <path d="M45 238 Q12 213 7 188 Q41 195 45 238Z"/>
+
+        <path d="M130 165 Q170 125 205 138 Q185 174 130 165Z"/>
+
+        <path d="M85 205 Q112 178 147 187 Q122 220 85 205Z"/>
+
+    </g>
+
+</symbol>
+
+</defs>
+</svg>
+
+
+<!-- BACKGROUND MUSIC -->
 <audio id="weddingAudio" loop>
     <source src="your-song-file.mp3" type="audio/mpeg">
 </audio>
+
+<button id="musicToggleBtn"
+class="fixed bottom-5 right-5 z-50 rounded-full w-12 h-12 bg-[#626c53] text-white border border-[#b49d72] shadow-xl"
+aria-label="Toggle music">
+
+    <i id="musicIcon" class="fa-solid fa-music"></i>
+
+</button>
+
+
+<!-- NAVIGATION -->
+<header class="fixed top-0 w-full z-40 bg-[#59634d]/95 text-[#f7f0df] shadow-md backdrop-blur">
+
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+
+        <a href="#home" class="script text-3xl whitespace-nowrap">
+            Edward & Ariane
+        </a>
+
+        <div class="hidden md:flex items-center gap-9 text-sm tracking-wider">
+
+            <a href="#home" class="hover:text-[#d9c9a5]">Home</a>
+
+            <a href="#guest-photos" class="hover:text-[#d9c9a5]">Memories</a>
+
+            <a href="#messages" class="hover:text-[#d9c9a5]">Messages</a>
+
+        </div>
+
+        <button id="mobileMenuBtn"
+        class="md:hidden text-xl"
+        aria-label="Open menu">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </nav>
+
+    <div id="mobileMenu"
+    class="hidden md:hidden bg-[#424c3b] text-center py-5 space-y-4">
+
+        <a href="#home" class="block">Home</a>
+
+        <a href="#guest-photos" class="block">Memories</a>
+
+        <a href="#messages" class="block">Messages</a>
+
+    </div>
+
+</header>
+
+
+<!-- HERO / WEDDING INVITATION -->
+<section id="home"
+class="relative min-h-[680px] md:min-h-[760px] flex items-center justify-center bg-cover bg-center px-4 pt-20"
+style="background-image:linear-gradient(#38432d40,#38432d50),url('https://images.unsplash.com/photo-1519741497674-611481863552?w=2000');">
+
+    <svg class="botanical top-left !text-[#f0e5c9]"
+    viewBox="0 0 240 280">
+
+        <use href="#floral-corner"/>
+
+    </svg>
+
+    <svg class="botanical top-right !text-[#f0e5c9]"
+    viewBox="0 0 240 280">
+
+        <use href="#floral-corner"/>
+
+    </svg>
+
+    <div class="absolute inset-0 bg-[#333a2b]/20"></div>
+
+    <div class="relative invitation-frame max-w-[600px] w-full text-center">
+
+        <p class="uppercase tracking-[3px] text-xs md:text-sm">
+            Together with their families
+        </p>
+
+        <p class="italic text-lg mt-4">
+            you are cordially invited to
+        </p>
+
+        <!-- NAMES: ONE LINE -->
+        <h1 class="couple-name mt-9">
+            Edward & Ariane
+        </h1>
+
+        <div class="ornament text-2xl my-5">
+            ❧
+        </div>
+
+        <p class="serif tracking-[4px] text-base md:text-xl">
+            DECEMBER 11, 2026
+        </p>
+
+        <p class="italic mt-4 text-sm">
+            A celebration of love and forever
+        </p>
+
+        <div class="ornament my-6">✥</div>
+
+        <a href="#guest-photos" class="vintage-btn inline-block">
+            CELEBRATE WITH US →
+        </a>
+
+    </div>
+
+    <a href="#guest-photos"
+    class="absolute bottom-8 right-8 text-white text-center text-xs tracking-widest">
+
+        SCROLL DOWN
+
+        <div class="border border-white rounded-full w-9 h-9 flex items-center justify-center mx-auto mt-2">
+
+            <i class="fa-solid fa-arrow-down"></i>
+
+        </div>
+
+    </a>
+
+</section>
+
+
+<!-- SHARE YOUR MEMORIES -->
+<section id="guest-photos"
+class="paper section-paper py-20 px-6">
+
+    <svg class="botanical left" viewBox="0 0 240 280">
+        <use href="#floral-corner"/>
+    </svg>
+
+    <svg class="botanical right" viewBox="0 0 240 280">
+        <use href="#floral-corner"/>
+    </svg>
+
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+
+        <h2 class="script text-6xl md:text-7xl text-[#59634d]">
+            Share Your Memories
+        </h2>
+
+        <div class="ornament my-5">❧</div>
+
+        <p class="text-xl italic mb-3">
+            Every picture tells a beautiful story.
+        </p>
+
+        <p class="text-base mb-9">
+            Help us keep these precious moments forever.
+            Share your favorite photos with us!
+        </p>
+
+        <div id="dropZone" class="rounded-lg p-10 md:p-14 cursor-pointer">
+
+            <input
+                type="file"
+                id="photoUpload"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                class="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                aria-label="Select wedding photos">
+
+            <div class="pointer-events-none">
+
+                <div class="w-16 h-16 bg-[#e2e4d6] text-[#626c53] rounded-full flex items-center justify-center mx-auto mb-5 text-2xl">
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold">
+                    Upload Your Photos
+                </h3>
+
+                <p class="text-xs tracking-widest mt-3 uppercase">
+                    Click to select your favorite memories
+                </p>
+
+                <p class="text-sm italic mt-3">
+                    Maximum 10 photos per submission
+                </p>
+
+                <p class="text-xs mt-2">
+                    JPG, PNG, WEBP · Up to 10MB per photo
+                </p>
+
+            </div>
+
+        </div>
+
+        <p id="photoCount" class="text-sm mt-4 text-[#626c53]">
+            No photos selected
+        </p>
+
+        <p class="script text-3xl mt-9">
+            Thank you for being part of our story.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- SHARE YOUR MESSAGE -->
+<section id="messages"
+class="section-paper bg-[#e8e7d8] py-20 px-6">
+
+    <svg class="botanical left" viewBox="0 0 240 280">
+        <use href="#floral-corner"/>
+    </svg>
+
+    <svg class="botanical right" viewBox="0 0 240 280">
+        <use href="#floral-corner"/>
+    </svg>
+
+    <div class="relative z-10 max-w-2xl mx-auto text-center">
+
+        <h2 class="script text-6xl md:text-7xl text-[#59634d]">
+            Leave Us a Message
+        </h2>
+
+        <div class="ornament my-5">❧</div>
+
+        <p class="text-lg italic mb-9">
+            A little note, a heartfelt wish, or a beautiful memory.
+            We'd love to hear from you!
+        </p>
+
+        <div class="bg-[#f7f0df] border border-[#b49d72] p-7 md:p-10 shadow-lg">
+
+            <form id="messageForm" class="text-left space-y-5">
+
+                <div>
+
+                    <label for="messageName" class="block mb-2 text-lg">
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="messageName"
+                        required
+                        maxlength="100"
+                        placeholder="Enter your name"
+                        class="form-input">
+
+                </div>
+
+                <div>
+
+                    <label for="guestMessage" class="block mb-2 text-lg">
+                        Your Message
+                    </label>
+
+                    <textarea
+                        id="guestMessage"
+                        required
+                        maxlength="1000"
+                        rows="5"
+                        placeholder="Write your heartfelt message here..."
+                        class="form-input resize-none"></textarea>
+
+                    <p class="text-xs text-right mt-2">
+                        <span id="messageLength">0</span>/1000 characters
+                    </p>
+
+                </div>
+
+                <button type="submit" class="vintage-btn w-full">
+                    SEND YOUR MESSAGE →
+                </button>
+
+            </form>
+
+            <div id="messageSuccess" class="hidden py-8 text-center">
+
+                <i class="fa-solid fa-heart text-4xl text-[#778064]"></i>
+
+                <h3 class="script text-5xl mt-4">
+                    Thank You!
+                </h3>
+
+                <p class="mt-3 text-lg">
+                    Your beautiful message means so much to us.
+                </p>
+
+            </div>
+
+        </div>
+
+        <p class="script text-4xl mt-10 text-[#59634d]">
+            With love, Edward & Ariane
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="bg-[#59634d] text-[#f7f0df] text-center py-10 px-5">
+
+    <p class="script text-3xl whitespace-nowrap">
+        E & A 
+    </p>
+
+    <div class="ornament my-5">❧</div>
+
+    <p class="text-xs tracking-[3px]">
+        DECEMBER 11, 2026
+    </p>
+
+    <p class="text-xs mt-7 opacity-80">
+        Made with love
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // MOBILE MENU
+    const menuBtn = document.getElementById("mobileMenuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+        });
+    });
+
+
+    // MUSIC
+    const audio = document.getElementById("weddingAudio");
+    const musicBtn = document.getElementById("musicToggleBtn");
+    const musicIcon = document.getElementById("musicIcon");
+
+    audio.volume = 0.4;
+
+    musicBtn.addEventListener("click", async () => {
+        if (audio.paused) {
+            try {
+                await audio.play();
+                musicIcon.className = "fa-solid fa-volume-high";
+            } catch (error) {
+                console.log("Music could not be played.");
+            }
+        } else {
+            audio.pause();
+            musicIcon.className = "fa-solid fa-music";
+        }
+    });
+
+
+    // PHOTO SELECTION LIMIT: 10 PHOTOS
+    const photoInput = document.getElementById("photoUpload");
+    const photoCount = document.getElementById("photoCount");
+
+    photoInput.addEventListener("change", () => {
+
+        const files = Array.from(photoInput.files);
+
+        if (files.length > 10) {
+            alert("You can only upload a maximum of 10 photos per submission.");
+            photoInput.value = "";
+            photoCount.textContent = "No photos selected";
+            return;
+        }
+
+        const invalidFile = files.find(file =>
+            !["image/jpeg", "image/png", "image/webp"].includes(file.type)
+        );
+
+        if (invalidFile) {
+            alert("Please select JPG, PNG, or WEBP photos only.");
+            photoInput.value = "";
+            photoCount.textContent = "No photos selected";
+            return;
+        }
+
+        const oversized = files.find(file =>
+            file.size > 10 * 1024 * 1024
+        );
+
+        if (oversized) {
+            alert("Each photo must be 10MB or smaller.");
+            photoInput.value = "";
+            photoCount.textContent = "No photos selected";
+            return;
+        }
+
+        photoCount.textContent =
+            files.length + (files.length === 1
+                ? " photo selected"
+                : " photos selected");
+
+    });
+
+
+    // MESSAGE CHARACTER COUNTER
+    const guestMessage = document.getElementById("guestMessage");
+    const messageLength = document.getElementById("messageLength");
+
+    guestMessage.addEventListener("input", () => {
+        messageLength.textContent = guestMessage.value.length;
+    });
+
+
+    // MESSAGE FORM
+    const messageForm = document.getElementById("messageForm");
+    const messageSuccess = document.getElementById("messageSuccess");
+
+    messageForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        // Front-end confirmation only.
+        // Connect Google Apps Script to save messages permanently.
+
+        messageForm.classList.add("hidden");
+        messageSuccess.classList.remove("hidden");
+    });
+
+});
+</script>
+
+<!-- GOOGLE DRIVE PHOTO UPLOAD SCRIPT -->
+<script src="script.js"></script>
+
 </body>
 </html>
